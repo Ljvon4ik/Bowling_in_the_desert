@@ -17,7 +17,6 @@ public class MovingIndicatorDirection : MonoBehaviour
         else
         {
             transform.Translate(Vector3.forward * -speedIndicatorDirection * Time.deltaTime, Space.World);
-
         }
 
         if (transform.position.z > zLimit)

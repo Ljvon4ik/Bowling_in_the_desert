@@ -10,6 +10,8 @@ public class MoveBall : MonoBehaviour
     private float xLimit = -3f;
     private float minSpeed = 1.5f;
     [SerializeField] GameManager gameManager;
+    public float delayBallSpeedCheck = 0.05f;
+    public float delayStartCountingFallenPins = 4f;
 
     private void Start()
     {
@@ -18,12 +20,13 @@ public class MoveBall : MonoBehaviour
 
     private void Update()
     {
-        if(rbBall.velocity.magnitude < minSpeed && ballRoll || transform.position.x < xLimit)
+        //Ball removal condition
+        if (rbBall.velocity.magnitude < minSpeed && ballRoll || transform.position.x < xLimit)
         {
-            gameManager.BallChoice();
-            gameObject.SetActive(false);
+            StartCoroutine(StartCountingFallenPins());
         }
     }
+
     public void StartActionBall(float throwForce)
     {
         Vector3 loocDirection = (indicatorDirection.transform.position - transform.position).normalized;
@@ -33,7 +36,14 @@ public class MoveBall : MonoBehaviour
 
     IEnumerator ActionBall()
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(delayBallSpeedCheck);
         ballRoll = true;
+    }
+
+    IEnumerator StartCountingFallenPins()
+    {
+        yield return new WaitForSeconds(delayStartCountingFallenPins);
+        gameObject.SetActive(false);
+        gameManager.CountingFallenPins();
     }
 }
