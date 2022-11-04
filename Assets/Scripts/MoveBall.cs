@@ -7,7 +7,7 @@ public class MoveBall : MonoBehaviour
     private Rigidbody rbBall;
     [SerializeField] GameObject indicatorDirection;
     public bool ballRoll;
-    private float xLimit = -3f;
+    private float xLimit = 1f;
     private float minSpeed = 1.5f;
     [SerializeField] GameManager gameManager;
     public float delayBallSpeedCheck = 0.05f;
